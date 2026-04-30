@@ -1,0 +1,130 @@
+﻿[
+    {
+        "id":  "sample-001",
+        "title":  "雾海灯塔",
+        "author":  "样本作者A",
+        "category":  "奇幻",
+        "status":  "连载",
+        "wordCount":  680000,
+        "sourceUrl":  "https://www.qidian.com/?source=m_jump",
+        "tags":  [
+                     "克苏鲁",
+                     "航海",
+                     "群像"
+                 ],
+        "summary":  "新书期样本，互动上涨快但评分人数仍偏少。",
+        "dataQuality":  "seed-sample"
+    },
+    {
+        "id":  "sample-002",
+        "title":  "长夜旧神",
+        "author":  "样本作者B",
+        "category":  "玄幻",
+        "status":  "连载",
+        "wordCount":  1820000,
+        "sourceUrl":  "https://www.qidian.com/?source=m_jump",
+        "tags":  [
+                     "升级",
+                     "神话",
+                     "热血"
+                 ],
+        "summary":  "近期月票、推荐票和评论同时走高，是近期活跃榜的强样本。",
+        "dataQuality":  "seed-sample"
+    },
+    {
+        "id":  "sample-003",
+        "title":  "天工序列",
+        "author":  "样本作者C",
+        "category":  "科幻",
+        "status":  "连载",
+        "wordCount":  2460000,
+        "sourceUrl":  "https://www.qidian.com/?source=m_jump",
+        "tags":  [
+                     "机甲",
+                     "工业",
+                     "智械"
+                 ],
+        "summary":  "超过 200 万字的连载长篇，更新稳定，留存评价可参与长篇榜。",
+        "dataQuality":  "seed-sample"
+    },
+    {
+        "id":  "sample-004",
+        "title":  "归墟行舟",
+        "author":  "样本作者D",
+        "category":  "仙侠",
+        "status":  "完本",
+        "wordCount":  3680000,
+        "sourceUrl":  "https://www.qidian.com/?source=m_jump",
+        "tags":  [
+                     "古典仙侠",
+                     "冒险",
+                     "长篇"
+                 ],
+        "summary":  "完本后仍有持续新增互动，衰减指数低，适合做留存标杆。",
+        "dataQuality":  "seed-sample"
+    },
+    {
+        "id":  "sample-005",
+        "title":  "星门档案",
+        "author":  "样本作者E",
+        "category":  "科幻",
+        "status":  "完本",
+        "wordCount":  2210000,
+        "sourceUrl":  "https://www.qidian.com/?source=m_jump",
+        "tags":  [
+                     "星际",
+                     "悬疑",
+                     "档案"
+                 ],
+        "summary":  "完本评分稳定，推荐票密度较高，近期互动衰减中等。",
+        "dataQuality":  "seed-sample"
+    },
+    {
+        "id":  "sample-006",
+        "title":  "九州棋局",
+        "author":  "样本作者F",
+        "category":  "历史",
+        "status":  "连载",
+        "wordCount":  4120000,
+        "sourceUrl":  "https://www.qidian.com/?source=m_jump",
+        "tags":  [
+                     "架空历史",
+                     "权谋",
+                     "战争"
+                 ],
+        "summary":  "超长连载，口碑和评论厚度好，但近期月票动能趋缓。",
+        "dataQuality":  "seed-sample"
+    },
+    {
+        "id":  "sample-007",
+        "title":  "山河食肆",
+        "author":  "样本作者G",
+        "category":  "现实",
+        "status":  "完本",
+        "wordCount":  2860000,
+        "sourceUrl":  "https://www.qidian.com/?source=m_jump",
+        "tags":  [
+                     "美食",
+                     "市井",
+                     "治愈"
+                 ],
+        "summary":  "完本后评论长尾稳定，评分人数多，留存榜表现优于活跃榜。",
+        "dataQuality":  "seed-sample"
+    },
+    {
+        "id":  "sample-008",
+        "title":  "机魂纪年",
+        "author":  "样本作者H",
+        "category":  "轻小说",
+        "status":  "连载",
+        "wordCount":  980000,
+        "sourceUrl":  "https://www.qidian.com/?source=m_jump",
+        "tags":  [
+                     "学院",
+                     "机甲",
+                     "轻小说"
+                 ],
+        "summary":  "轻量连载样本，更新快，讨论活跃但推荐票基数较小。",
+        "dataQuality":  "seed-sample"
+    }
+]
