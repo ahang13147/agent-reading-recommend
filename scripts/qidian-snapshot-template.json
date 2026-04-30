@@ -1,0 +1,16 @@
+{
+  "snapshots": [
+    {
+      "bookId": "sample-001",
+      "capturedAt": "2026-04-30",
+      "monthTickets": 2890,
+      "recommendTickets": 43800,
+      "rating": 8.48,
+      "ratingCount": 2410,
+      "chapterComments": 18300,
+      "chapterCount": 214,
+      "updatedWords7d": 52000,
+      "source": "qidian-import"
+    }
+  ]
+}
