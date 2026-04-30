@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>小说趋势追踪</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Novel Trend Tracker</p>
+      <h1>小说趋势追踪</h1>
+    </div>
+    <div class="topbar-actions">
+      <span id="collectorBadge" class="status-pill">采集状态</span>
+      <button id="refreshButton" class="icon-button" title="刷新今日快照" aria-label="刷新今日快照">↻</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="summary-strip" aria-label="概览">
+      <div class="summary-item">
+        <span class="summary-label">追踪书籍</span>
+        <strong id="bookCount">0</strong>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">榜单模式</span>
+        <strong id="modeLabel">每日推荐</strong>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">最高得分</span>
+        <strong id="topScore">0</strong>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">更新时间</span>
+        <strong id="generatedAt">--</strong>
+      </div>
+    </section>
+
+    <section class="controls" aria-label="榜单控制">
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-mode="daily" role="tab">每日推荐</button>
+        <button class="tab" data-mode="active" role="tab">近期活跃</button>
+        <button class="tab" data-mode="retention" role="tab">长篇留存</button>
+      </div>
+      <div class="filters">
+        <label>
+          <span>题材</span>
+          <select id="categoryFilter">
+            <option value="">全部</option>
+          </select>
+        </label>
+        <label>
+          <span>状态</span>
+          <select id="statusFilter">
+            <option value="">全部</option>
+            <option value="连载">连载</option>
+            <option value="完本">完本</option>
+          </select>
+        </label>
+        <label>
+          <span>最低字数</span>
+          <input id="minWords" type="number" min="0" step="100000" value="0">
+        </label>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="ranking" id="ranking"></div>
+      <aside class="detail-panel">
+        <div class="panel-heading">
+          <span>书籍画像</span>
+          <strong id="detailTitle">选择一本书</strong>
+        </div>
+        <div id="detailBody" class="detail-body muted">榜单项会在这里显示快照曲线、评分拆解和推荐理由。</div>
+      </aside>
+    </section>
+
+    <section class="collector-section">
+      <div class="section-heading">
+        <span>半自动追踪</span>
+        <strong>用已登录页面导入公开元数据</strong>
+      </div>
+      <div class="collector-layout">
+        <div class="collector-form">
+          <div class="collector-fields">
+            <label>
+              <span>页面地址</span>
+              <input id="captureUrl" type="url" placeholder="https://www.qidian.com/rank/yuepiao/">
+            </label>
+            <label>
+              <span>快照日期</span>
+              <input id="captureDate" type="date">
+            </label>
+          </div>
+          <label class="capture-box">
+            <span>页面 HTML 或可见文本</span>
+            <textarea id="captureText" placeholder="在起点榜单或分类页中复制页面源码、保存后的 HTML 内容，或选择页面后复制可见文本，再粘贴到这里。"></textarea>
+          </label>
+          <div class="collector-actions">
+            <button id="importCaptureButton" class="primary-button">导入快照</button>
+            <span id="importResult" class="muted">等待导入真实页面数据。</span>
+          </div>
+        </div>
+        <div class="target-panel">
+          <div class="panel-heading">
+            <span>建议追踪范围</span>
+            <strong>低频、分批、可审计</strong>
+          </div>
+          <div id="targetList" class="target-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="scheme-section">
+      <div class="section-heading">
+        <span>评分机制</span>
+        <strong>趋势与留存双模型</strong>
+      </div>
+      <div id="schemeGrid" class="scheme-grid"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
