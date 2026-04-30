@@ -1,0 +1,5 @@
+.server.pid
+data/inbox/
+*.log
+*.tmp
+*.zip
