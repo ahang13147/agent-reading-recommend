@@ -1,4 +1,4 @@
-param(
+﻿param(
     [int]$Port = 5177,
     [string]$Root = (Split-Path -Parent $PSScriptRoot)
 )
@@ -61,7 +61,7 @@ function Get-Targets {
     $defaults = @(
         [pscustomobject]@{
             id = 'rank-yuepiao'
-            name = 'Monthly ticket ranking'
+            name = '月票榜'
             url = 'https://www.qidian.com/rank/yuepiao/'
             cadence = 'daily'
             limit = 200
@@ -69,7 +69,7 @@ function Get-Targets {
         },
         [pscustomobject]@{
             id = 'rank-recom'
-            name = 'Recommendation ranking'
+            name = '推荐榜'
             url = 'https://www.qidian.com/rank/recom/'
             cadence = 'daily'
             limit = 200
@@ -77,7 +77,7 @@ function Get-Targets {
         },
         [pscustomobject]@{
             id = 'finish'
-            name = 'Finished books'
+            name = '完本库'
             url = 'https://www.qidian.com/finish/'
             cadence = 'weekly'
             limit = 300
@@ -85,7 +85,7 @@ function Get-Targets {
         },
         [pscustomobject]@{
             id = 'all'
-            name = 'All library discovery'
+            name = '全站书库发现'
             url = 'https://www.qidian.com/all/'
             cadence = 'weekly'
             limit = 500
@@ -382,7 +382,7 @@ function ConvertFrom-QidianContent {
             wordCount = [int]$wordCount
             sourceUrl = if ([string]::IsNullOrWhiteSpace($SourceUrl)) { 'https://book.qidian.com/info/' + $id } else { $SourceUrl }
             tags = @()
-            summary = 'Imported from semi-automatic Qidian page capture.'
+            summary = '由半自动起点页面采集导入。'
             dataQuality = 'qidian-html'
         }
 
@@ -401,7 +401,7 @@ function ConvertFrom-QidianContent {
                 source = 'qidian-html'
             }
         } else {
-            $warnings.Add('Discovered book ' + $id + ' but no ranking metrics were parsed.')
+            $warnings.Add('已发现书籍 ' + $id + '，但没有解析到可用于排名的指标。')
         }
     }
 
@@ -508,10 +508,10 @@ function Get-BookHistoryPayload {
 function Get-SchemePayload {
     return [pscustomobject]@{
         metricAssumptions = @(
-            'Monthly tickets are treated as a strong time-window signal. If a reset is detected, the current-period value is used as fresh activity.',
-            'Recommendation tickets are treated as cumulative interaction. If a snapshot moves backward, that segment is kept but down-weighted.',
-            'Ratings use Bayesian shrinkage with rating count, so a small number of high ratings cannot dominate the list.',
-            'Chapter comments measure retention and discussion depth, especially for finished books or books above two million words.'
+            '月票被视为强时间窗口信号；如果检测到月度重置，系统会把当期数值作为新的活跃度处理。',
+            '推荐票按累计互动处理；如果快照出现回退，系统会保留该段数据但降低可信权重。',
+            '评分会结合评分人数做贝叶斯收缩，避免少量高分样本直接支配榜单。',
+            '章节评论用于衡量讨论深度和读者留存，尤其适合完本书和 200 万字以上长篇。'
         )
         activeFormula = [pscustomobject]@{
             monthMomentum = '30%'
@@ -519,7 +519,7 @@ function Get-SchemePayload {
             commentMomentum = '20%'
             ratingPulse = '16%'
             updateConsistency = '12%'
-            note = 'The active list compares recent snapshot deltas, using 30-day momentum by default.'
+            note = '近期活跃榜比较快照增量，默认使用 30 日动能衡量作品是否正在起势。'
         }
         retentionFormula = [pscustomobject]@{
             bayesianRating = '30%'
@@ -527,13 +527,13 @@ function Get-SchemePayload {
             commentDepth = '18%'
             recommendDensity = '17%'
             ratingStability = '15%'
-            note = 'The retention list focuses on finished books or books above two million words. Lower decay means recent interaction holds up better against history.'
+            note = '长篇留存榜聚焦完本或 200 万字以上作品；衰减越低，说明近期互动相对历史基线越稳。'
         }
         collectionPlan = @(
-            'Discovery: find bookId values from library, category, rank, or permitted data-source pages, then enqueue them.',
-            'Daily snapshot: store monthly tickets, recommendation tickets, rating, rating count, chapter comments, chapter count, and seven-day updated words.',
-            'Access boundary: the app does not steal browser cookies. Use a permitted API, manual snapshot export, or an explicitly configured cookie header.',
-            'Output: build daily, active, and retention rankings every day. The frontend filters by category, status, and minimum word count.'
+            '发现阶段：从书库、分类、榜单或允许访问的数据页中识别 bookId，并加入追踪队列。',
+            '快照阶段：保存月票、推荐票、评分、评分人数、章节评论、章节数和近七日更新字数。',
+            '访问边界：应用不会偷取浏览器登录信息，只使用手动导入、允许的数据源或明确配置的访问凭证。',
+            '输出阶段：每天生成每日推荐、近期活跃、长篇留存三张榜，前端可按题材、状态和最低字数筛选。'
         )
     }
 }
@@ -546,7 +546,7 @@ function Get-CollectorStatus {
         cookieConfigured = $cookieEnabled
         inboxWaiting = (Test-Path -LiteralPath $inboxFile)
         mode = if ($cookieEnabled) { 'cookie-header-ready' } else { 'manual-inbox-or-demo-projection' }
-        note = 'Anonymous requests to Qidian can return an anti-bot probe page. Production collection should use permitted data sources, low-frequency access, and snapshot import instead of bypassing access controls.'
+        note = '匿名访问起点可能返回风控页；正式采集应使用允许的数据源、低频访问和快照导入，不绕过访问控制。'
     }
 }
 
@@ -770,3 +770,4 @@ try {
 } finally {
     $listener.Stop()
 }
+

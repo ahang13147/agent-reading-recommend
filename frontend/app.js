@@ -29,6 +29,30 @@ const componentLabels = {
   ratingStability: "评分稳定"
 };
 
+const targetNameLabels = {
+  "rank-yuepiao": "月票榜",
+  "rank-recom": "推荐榜",
+  finish: "完本库",
+  all: "全站书库发现"
+};
+
+const cadenceLabels = {
+  daily: "每日",
+  weekly: "每周",
+  manual: "手动",
+  "manual-or-cookie": "手动或凭证导入"
+};
+
+const sourceLabels = {
+  projected: "演示预测",
+  inbox: "本地导入",
+  "qidian-html": "起点页面导入"
+};
+
+const summaryLabels = {
+  "Imported from semi-automatic Qidian page capture.": "由半自动起点页面采集导入。"
+};
+
 function el(id) {
   return document.getElementById(id);
 }
@@ -59,6 +83,16 @@ function showToast(message) {
   toast.classList.add("show");
   window.clearTimeout(showToast.timer);
   showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2600);
+}
+
+function labelOf(map, value, fallback = "") {
+  const key = String(value || "");
+  return map[key] || fallback || key;
+}
+
+function localizeSummary(summary) {
+  const text = String(summary || "");
+  return summaryLabels[text] || text || "暂无简介";
 }
 
 function formatNumber(value) {
@@ -247,7 +281,7 @@ function renderDetail() {
     : `${renderMeter("趋势评分", Number(item.TrendScore || 0))}${renderMeter("留存评分", Number(item.RetentionScore || 0))}${renderMeter("留存能力", (1 - Number(item.DecayIndex || 0)) * 100)}`;
 
   el("detailBody").innerHTML = `
-    <p>${escapeHtml(book.summary || "暂无简介")}</p>
+    <p>${escapeHtml(localizeSummary(book.summary))}</p>
     <p class="book-meta">${escapeHtml(book.author || "")} · ${escapeHtml(book.category || "")} · ${escapeHtml(normalizeStatus(book.status))} · ${escapeHtml(formatWords(book.wordCount))} ${sourceUrl}</p>
     <div class="snapshot-grid">
       <div class="snapshot-cell"><span>综合得分</span><strong>${scoreOf(item).toFixed(1)}</strong></div>
@@ -322,7 +356,7 @@ function renderCollector() {
   if (!state.collector) return;
   const badge = el("collectorBadge");
   const text = state.collector.cookieConfigured
-    ? "Cookie 源就绪"
+    ? "登录凭证源就绪"
     : state.collector.inboxWaiting
       ? "有待导入快照"
       : "演示快照源";
@@ -340,8 +374,8 @@ function renderTargets() {
 
   list.innerHTML = state.targets.map(target => `
     <div class="target-item">
-      <a href="${escapeHtml(target.url)}" target="_blank" rel="noreferrer">${escapeHtml(target.name || target.id)}</a>
-      <span class="target-meta">${escapeHtml(target.cadence || "manual")} · 上限 ${Number(target.limit || 0)} · ${target.enabled ? "启用" : "暂停"}</span>
+      <a href="${escapeHtml(target.url)}" target="_blank" rel="noreferrer">${escapeHtml(targetNameLabels[target.id] || target.name || target.id)}</a>
+      <span class="target-meta">${escapeHtml(labelOf(cadenceLabels, target.cadence, "手动"))} · 上限 ${Number(target.limit || 0)} · ${target.enabled ? "启用" : "暂停"}</span>
     </div>
   `).join("");
 }
@@ -393,7 +427,7 @@ el("refreshButton").addEventListener("click", async () => {
   try {
     el("refreshButton").disabled = true;
     const result = await api("/api/track/refresh", { method: "POST", body: "{}" });
-    showToast(`快照已刷新：${result.imported} 条，来源 ${result.source}`);
+    showToast(`快照已刷新：${result.imported} 条，来源 ${labelOf(sourceLabels, result.source, "未知来源")}`);
     await loadRecommendations();
   } catch (error) {
     showToast(`刷新失败：${error.message}`);
@@ -409,7 +443,7 @@ el("importCaptureButton").addEventListener("click", async () => {
   const resultLabel = el("importResult");
 
   if (!html) {
-    showToast("先粘贴起点页面 HTML 或可见文本。");
+    showToast("先粘贴起点页面源码或可见文本。");
     return;
   }
 

@@ -3,14 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>小说趋势追踪</title>
+  <title>小说趋势信号台</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header class="topbar">
-    <div>
-      <p class="eyebrow">Novel Trend Tracker</p>
-      <h1>小说趋势追踪</h1>
+    <div class="brand-lockup">
+      <p class="eyebrow">网文趋势实验室</p>
+      <h1>小说趋势信号台</h1>
+      <p class="hero-copy">把月票、推荐票、评分、章节讨论和更新节奏压到同一条时间线上，识别短期爆发与长篇留存。</p>
+      <div class="model-badges" aria-label="模型能力">
+        <span>贝叶斯校准</span>
+        <span>衰减指数</span>
+        <span>每日快照</span>
+      </div>
     </div>
     <div class="topbar-actions">
       <span id="collectorBadge" class="status-pill">采集状态</span>
@@ -21,7 +27,7 @@
   <main>
     <section class="summary-strip" aria-label="概览">
       <div class="summary-item">
-        <span class="summary-label">追踪书籍</span>
+        <span class="summary-label">书籍池</span>
         <strong id="bookCount">0</strong>
       </div>
       <div class="summary-item">
@@ -29,11 +35,11 @@
         <strong id="modeLabel">每日推荐</strong>
       </div>
       <div class="summary-item">
-        <span class="summary-label">最高得分</span>
+        <span class="summary-label">最高分</span>
         <strong id="topScore">0</strong>
       </div>
       <div class="summary-item">
-        <span class="summary-label">更新时间</span>
+        <span class="summary-label">生成时间</span>
         <strong id="generatedAt">--</strong>
       </div>
     </section>
@@ -95,8 +101,8 @@
             </label>
           </div>
           <label class="capture-box">
-            <span>页面 HTML 或可见文本</span>
-            <textarea id="captureText" placeholder="在起点榜单或分类页中复制页面源码、保存后的 HTML 内容，或选择页面后复制可见文本，再粘贴到这里。"></textarea>
+            <span>页面源码或可见文本</span>
+            <textarea id="captureText" placeholder="在起点榜单或分类页中复制页面源码、保存后的页面内容，或选择页面后复制可见文本，再粘贴到这里。"></textarea>
           </label>
           <div class="collector-actions">
             <button id="importCaptureButton" class="primary-button">导入快照</button>

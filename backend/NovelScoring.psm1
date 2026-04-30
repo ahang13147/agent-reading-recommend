@@ -1,4 +1,4 @@
-Set-StrictMode -Version Latest
+﻿Set-StrictMode -Version Latest
 
 function Clamp-Number {
     param(
@@ -204,7 +204,7 @@ function Get-TrendScoreForBook {
             Score = 0
             Components = [pscustomobject]@{}
             LatestSnapshot = $null
-            Reason = 'No snapshots yet'
+            Reason = '暂无快照数据'
         }
     }
 
@@ -235,12 +235,12 @@ function Get-TrendScoreForBook {
     $score = $score * (0.72 + (0.28 * $dataConfidence))
 
     $reasonParts = New-Object System.Collections.Generic.List[string]
-    if ($monthMomentum -ge 0.66) { $reasonParts.Add('Strong monthly-ticket momentum') }
-    if ($recommendMomentum -ge 0.62) { $reasonParts.Add('Fast recommendation growth') }
-    if ($commentMomentum -ge 0.58) { $reasonParts.Add('Active chapter discussion') }
-    if ($ratingPulse.Score -ge 0.72) { $reasonParts.Add('Stable rating reputation') }
-    if ($updateConsistency -ge 0.58) { $reasonParts.Add('Stable recent updates') }
-    if ($reasonParts.Count -eq 0) { $reasonParts.Add('Balanced signals') }
+    if ($monthMomentum -ge 0.66) { $reasonParts.Add('月票动能强') }
+    if ($recommendMomentum -ge 0.62) { $reasonParts.Add('推荐票增长快') }
+    if ($commentMomentum -ge 0.58) { $reasonParts.Add('章节讨论活跃') }
+    if ($ratingPulse.Score -ge 0.72) { $reasonParts.Add('评分口碑稳定') }
+    if ($updateConsistency -ge 0.58) { $reasonParts.Add('近期更新稳定') }
+    if ($reasonParts.Count -eq 0) { $reasonParts.Add('信号表现均衡') }
 
     return [pscustomobject]@{
         Book = $Book
@@ -286,7 +286,7 @@ function Get-RetentionScoreForBook {
             DecayIndex = 1
             Components = [pscustomobject]@{}
             LatestSnapshot = $null
-            Reason = 'No snapshots yet'
+            Reason = '暂无快照数据'
         }
     }
 
@@ -334,11 +334,11 @@ function Get-RetentionScoreForBook {
     }
 
     $reasonParts = New-Object System.Collections.Generic.List[string]
-    if ($rating.Score -ge 0.72) { $reasonParts.Add('Strong long-term rating') }
-    if ($retentionIndex -ge 0.62) { $reasonParts.Add('Low 30-day decay') }
-    if ($commentDepth -ge 0.58) { $reasonParts.Add('High comment depth') }
-    if ($recommendDensity -ge 0.58) { $reasonParts.Add('High recommendations per million words') }
-    if ($reasonParts.Count -eq 0) { $reasonParts.Add('Moderate retention signals') }
+    if ($rating.Score -ge 0.72) { $reasonParts.Add('长期评分扎实') }
+    if ($retentionIndex -ge 0.62) { $reasonParts.Add('近30日衰减低') }
+    if ($commentDepth -ge 0.58) { $reasonParts.Add('评论深度高') }
+    if ($recommendDensity -ge 0.58) { $reasonParts.Add('百万字推荐密度高') }
+    if ($reasonParts.Count -eq 0) { $reasonParts.Add('留存信号中等') }
 
     return [pscustomobject]@{
         Book = $Book
@@ -464,3 +464,4 @@ Export-ModuleMember -Function @(
     'New-ProjectedSnapshot',
     'Test-RetentionEligible'
 )
+
