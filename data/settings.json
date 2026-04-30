@@ -1,0 +1,8 @@
+{
+  "dailyRunAt": "08:30",
+  "activeWindowDays": 30,
+  "retentionMinWords": 2000000,
+  "maxRecommendations": 20,
+  "qidianSourceUrl": "https://www.qidian.com/?source=m_jump",
+  "collectorMode": "manual-or-cookie"
+}
