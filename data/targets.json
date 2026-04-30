@@ -1,0 +1,34 @@
+[
+  {
+    "id": "rank-yuepiao",
+    "name": "Monthly ticket ranking",
+    "url": "https://www.qidian.com/rank/yuepiao/",
+    "cadence": "daily",
+    "limit": 200,
+    "enabled": true
+  },
+  {
+    "id": "rank-recom",
+    "name": "Recommendation ranking",
+    "url": "https://www.qidian.com/rank/recom/",
+    "cadence": "daily",
+    "limit": 200,
+    "enabled": true
+  },
+  {
+    "id": "finish",
+    "name": "Finished books",
+    "url": "https://www.qidian.com/finish/",
+    "cadence": "weekly",
+    "limit": 300,
+    "enabled": true
+  },
+  {
+    "id": "all",
+    "name": "All library discovery",
+    "url": "https://www.qidian.com/all/",
+    "cadence": "weekly",
+    "limit": 500,
+    "enabled": false
+  }
+]
